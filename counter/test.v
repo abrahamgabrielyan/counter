@@ -293,11 +293,9 @@ initial
 
         all_tests_end = $realtime;
 
-        $display("");
-        $display("TOTAL TESTS: %0d, PASSED: %0d, FAILED: %0d, SKIPPED: %0d.",
+        $display("\nTOTAL TESTS: %0d, PASSED: %0d, FAILED: %0d, SKIPPED: %0d.",
                     TOTAL_TESTS, passed_tests_count, failed_tests_count, skipped_tests_count);
-        $display("Time elapsed for all tests: %0t", all_tests_end);
-        $display("");
+        $display("Time elapsed for all tests: %0t\n", all_tests_end);
 
         #80 up_down = ~up_down;
         #1000 $finish;
