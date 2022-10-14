@@ -14,38 +14,38 @@ module counter #(parameter                WIDTH = 1,
 );
 
 always@(*)
-    begin
-        if(up_down) begin
-            if(count >= MAX) begin
-                finish <= 1'b1;
-            end else begin
-                finish <= 1'b0;
-            end
-        end else if (count <= MIN) begin
+begin
+    if(up_down) begin
+        if(count >= MAX) begin
             finish <= 1'b1;
-        end else if (count > MAX) begin
+        end else begin
             finish <= 1'b0;
         end
-    end //end of always block
+    end else if (count <= MIN) begin
+        finish <= 1'b1;
+    end else if (count > MAX) begin
+        finish <= 1'b0;
+    end
+end //end of always block
 
 always@ (posedge clk)
-    begin
-        if(rst) begin
-            count <= {(WIDTH){1'b0}};
-        end else if (en) begin
-            if(set) begin
-                count <= din;
+begin
+    if(rst) begin
+        count <= {(WIDTH){1'b0}};
+    end else if (en) begin
+        if(set) begin
+            count <= din;
+        end else begin
+            if(up_down) begin
+                if(count < MAX) begin
+                    count <= count + step;
+                end
             end else begin
-                if(up_down) begin
-                    if(count < MAX) begin
-                        count <= count + step;
-                    end
-                end else begin
-                    if(count > MIN) begin
-                        count <= count - step;
-                    end
+                if(count > MIN) begin
+                    count <= count - step;
                 end
             end
         end
-    end //end of always block
+    end
+end //end of always block
 endmodule //counter
